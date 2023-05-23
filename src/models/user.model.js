@@ -1,28 +1,20 @@
 const { Schema, model } = require('mongoose')
 
 const UserSchema = new Schema({
-  userId: { type: String, required: true, unique: true },
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  content: {
-    memes: [{
+  mycontent: {
+    content: [{
       type: Schema.Types.ObjectId,
-      ref: 'Meme'
-    }],
-    gifs: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Gif'
+      ref: 'Content'
     }]
   },
   likes: {
-    memes: [{
+    content: [{
       type: Schema.Types.ObjectId,
-      ref: 'Meme'
-    }],
-    gifs: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Gif'
+      ref: 'Content'
     }]
   }
 }, {

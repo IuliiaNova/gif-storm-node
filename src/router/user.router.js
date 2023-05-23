@@ -5,6 +5,6 @@ const md_auth = require('../middlewares/auth.middleware')
 const api = express.Router()
 
 api
-.post('/register-login-user', md_auth.ensureAuth, controller.registerLoginUser)
+.post('/register-login-user', controller.registerLoginUser)
 
 module.exports = api
