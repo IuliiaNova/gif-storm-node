@@ -7,10 +7,11 @@ const errorMiddleware = require('./middlewares/error.middleware')
 const fileUpload = require('express-fileupload')
 
 const userRoutes = require('./router/user.router')
+const contentRoutes = require('./router/content.router')
 
 app.use(express.json())
 app.use(cors({
-  origin: ['http://localhost:4000']
+  origin: ['http://localhost:5173']
 }))
 
 app.use(
@@ -26,6 +27,7 @@ app.use(helmet())
 app.use(helmet({ crossOriginEmbedderPolicy: true }))
 
 app.use(`/api/${config.app.API_VERSION}`, userRoutes)
+app.use(`/api/${config.app.API_VERSION}`, contentRoutes)
 
 app.use(errorMiddleware)
 
