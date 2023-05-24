@@ -1,22 +1,18 @@
 const { Schema, model } = require('mongoose')
 
 const UserSchema = new Schema({
-  userId: { type: String, required: true },
+  userId: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   nickname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  mycontent: {
-    content: [{
+  content: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Content'
+    }],
+  likes: [{
       type: Schema.Types.ObjectId,
       ref: 'Content'
     }]
-  },
-  likes: {
-    content: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Content'
-    }]
-  }
 }, {
 timestamps: true
 })
