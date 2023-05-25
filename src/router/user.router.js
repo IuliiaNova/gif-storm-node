@@ -6,5 +6,6 @@ const api = express.Router()
 
 api
 .post('/register-login-user', controller.registerLoginUser)
+.get('/all-users', controller.getAllUsers)
 
 module.exports = api

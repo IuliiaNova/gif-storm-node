@@ -31,7 +31,20 @@ async function registerLoginUser(req, res) {
   }
 }
 
+async function getAllUsers(req, res, next) {
+  try {
+    const userStored = await db.User.find().lean().exec();
+    if (!userStored) {
+      return res.status(400).send({ status: 400 });
+    }
+    return res.status(200).send({ status: 200, content: userStored });
+  } catch (err) {
+    return res.status(500).send({ status: 500, error: err });
+  }
+}
+
 
 module.exports = {
-  registerLoginUser
+  registerLoginUser,
+  getAllUsers
 }

@@ -70,6 +70,9 @@ AUTH0_ISSUER={}
 | GET    | /search-content/:query | Search content by query   |
 | DELETE | /memes/:id             | Delete a content by ID    |
 | POST   | /register-login-user   | Register or login a user  |
+| GET    | /all-users             | Get all users             |
+
+
 
 
 ## Postman 
