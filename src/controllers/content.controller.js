@@ -60,14 +60,20 @@ async function getContentById(req, res, next) {
 
 async function deleteContentById(req, res, next) {
   const { id } = req.params;
+  const { userId } = req.body
   if (!id) {
     return res.status(400).send({ status: 404 });
   }
   try {
-    const contentStored = await db.Content.findByIdAndRemove({ _id: id }).lean().exec();
+    const contentStored = await db.Content.findByIdAndDelete({ _id: id }).lean().exec();
     if (!contentStored) {
       return res.status(400).send({ status: 400 });
     }
+
+    await db.User.findOneAndUpdate(
+      { _id: userId },
+      { $pull: { content: contentStored._id } }
+    )
     return res.status(200).send({ status: 200});
   } catch (err) {
     return res.status(500).send({ status: 500, error: err });
