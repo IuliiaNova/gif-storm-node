@@ -84,6 +84,7 @@ async function deleteContentById(req, res, next) {
 
 async function searchContent(req, res) {
 	const { query } = req.params
+
 	if (query.length < 2) {
 		return res.status(404).send({ status: 404 })
 	}
@@ -91,20 +92,17 @@ async function searchContent(req, res) {
 		const queryRegex = new RegExp(`${query}`, 'i')
 		const content = await db.Content.find({ name: queryRegex }).lean().exec();
 		
-
 		if (!content) {
 			return res.status(400).send({ status: 400 })
 		}
-		let contentArray = []
-		
 
-		content.forEach(item => contentArray.push({
-			_id: item._id,
+		const contentArray = content.map(item => ({
+      _id: item._id,
       name: item.name,
       url: item.url,
 			type: item.type,
       genre: item.genre
-		}));
+    }))
 
 		return res.status(200).send({
 			status: 200,
